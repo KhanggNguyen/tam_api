@@ -5,11 +5,7 @@ const cors = require("cors");
 const app = express();
 const port = 5000;
 
-app.use(
-    cors({
-        origin: ["http://localhost:3000"],
-    })
-);
+app.use(cors());
 
 function papaParsePromise(blob) {
     return new Promise(function (resolve) {
@@ -67,7 +63,7 @@ app.get("/lines", async (req, res) => {
         let records = await papaParsePromise(tamCSV);
 
         records = records.reduce((acc, curr) => {
-            let groupKey = curr['route_short_name'];
+            let groupKey = curr["route_short_name"];
 
             if (!acc[groupKey]) {
                 acc[groupKey] = [];
@@ -76,7 +72,7 @@ app.get("/lines", async (req, res) => {
 
             return acc;
         }, {});
-        
+
         return Object.keys(records);
     };
 
